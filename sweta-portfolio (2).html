@@ -1,0 +1,724 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sweta Pasari - Software Engineer</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Helvetica Neue', Arial, sans-serif;
+            line-height: 1.6;
+            color: #1a1a1a;
+            background: linear-gradient(135deg, #0f0c29 0%, #302b63 50%, #24243e 100%);
+            min-height: 100vh;
+            padding: 0;
+        }
+
+        .noise-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            opacity: 0.03;
+            background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 400 400' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' /%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)' /%3E%3C/svg%3E");
+            pointer-events: none;
+            z-index: 1;
+        }
+
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 60px 30px;
+            position: relative;
+            z-index: 2;
+        }
+
+        header {
+            text-align: center;
+            margin-bottom: 80px;
+            animation: fadeInDown 0.8s ease-out;
+        }
+
+        .profile-photo {
+            width: 200px;
+            height: 200px;
+            border-radius: 50%;
+            object-fit: cover;
+            margin-bottom: 30px;
+            border: 5px solid rgba(255, 255, 255, 0.3);
+            box-shadow: 0 10px 40px rgba(168, 192, 255, 0.4);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .profile-photo:hover {
+            transform: scale(1.05);
+            box-shadow: 0 15px 50px rgba(168, 192, 255, 0.6);
+        }
+
+        @keyframes fadeInDown {
+            from {
+                opacity: 0;
+                transform: translateY(-30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        h1 {
+            font-size: 4em;
+            font-weight: 800;
+            margin-bottom: 15px;
+            background: linear-gradient(135deg, #ffffff 0%, #a8c0ff 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            letter-spacing: -0.03em;
+            text-shadow: 0 0 40px rgba(168, 192, 255, 0.3);
+        }
+
+        .subtitle {
+            font-size: 1.4em;
+            color: #a8c0ff;
+            margin-bottom: 25px;
+            font-weight: 300;
+            letter-spacing: 0.5px;
+        }
+
+        .contact-links {
+            display: flex;
+            justify-content: center;
+            gap: 25px;
+            flex-wrap: wrap;
+            margin-top: 30px;
+        }
+
+        .contact-links a {
+            color: #ffffff;
+            text-decoration: none;
+            font-size: 0.95em;
+            padding: 12px 28px;
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            border-radius: 25px;
+            transition: all 0.3s ease;
+            font-weight: 500;
+        }
+
+        .contact-links a:hover {
+            background: rgba(168, 192, 255, 0.3);
+            border-color: rgba(168, 192, 255, 0.5);
+            transform: translateY(-2px);
+            box-shadow: 0 8px 20px rgba(168, 192, 255, 0.3);
+        }
+
+        .section {
+            background: rgba(255, 255, 255, 0.98);
+            padding: 50px;
+            margin-bottom: 30px;
+            border-radius: 20px;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+            backdrop-filter: blur(10px);
+            animation: fadeInUp 0.8s ease-out;
+            animation-fill-mode: both;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .section:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 25px 70px rgba(168, 192, 255, 0.4);
+        }
+
+        .section:nth-child(2) { animation-delay: 0.1s; }
+        .section:nth-child(3) { animation-delay: 0.2s; }
+        .section:nth-child(4) { animation-delay: 0.3s; }
+        .section:nth-child(5) { animation-delay: 0.4s; }
+        .section:nth-child(6) { animation-delay: 0.5s; }
+
+        h2 {
+            font-size: 2.2em;
+            font-weight: 700;
+            margin-bottom: 30px;
+            background: linear-gradient(135deg, #302b63 0%, #24243e 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            letter-spacing: -0.02em;
+            position: relative;
+            display: inline-block;
+        }
+
+        h2::after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            left: 0;
+            width: 60px;
+            height: 4px;
+            background: linear-gradient(90deg, #667eea 0%, #764ba2 100%);
+            border-radius: 2px;
+        }
+
+        .about-content {
+            display: grid;
+            grid-template-columns: 2fr 1fr;
+            gap: 40px;
+            align-items: start;
+        }
+
+        .about-text {
+            font-size: 1.1em;
+            line-height: 1.8;
+            color: #2c2c2c;
+            text-align: justify;
+        }
+
+        .about-text p {
+            margin-bottom: 20px;
+        }
+
+        .about-stats {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+
+        .stat-card {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            padding: 25px;
+            border-radius: 15px;
+            color: white;
+            text-align: center;
+            transition: transform 0.3s ease;
+        }
+
+        .stat-card:hover {
+            transform: scale(1.05);
+        }
+
+        .stat-number {
+            font-size: 2.5em;
+            font-weight: 800;
+            display: block;
+            margin-bottom: 5px;
+        }
+
+        .stat-label {
+            font-size: 0.9em;
+            opacity: 0.95;
+            font-weight: 500;
+        }
+
+        .experience-item,
+        .project-item,
+        .education-item {
+            margin-bottom: 35px;
+            padding: 25px;
+            background: linear-gradient(135deg, #f8f9ff 0%, #fafaff 100%);
+            border-radius: 12px;
+            border-left: 4px solid #667eea;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .experience-item::before,
+        .project-item::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, rgba(102, 126, 234, 0.05) 0%, rgba(118, 75, 162, 0.05) 100%);
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .experience-item:hover::before,
+        .project-item:hover::before {
+            opacity: 1;
+        }
+
+        .experience-item:hover,
+        .project-item:hover,
+        .education-item:hover {
+            transform: translateX(10px);
+            box-shadow: 0 8px 25px rgba(102, 126, 234, 0.15);
+            border-left-color: #764ba2;
+        }
+
+        h3 {
+            font-size: 1.3em;
+            font-weight: 700;
+            color: #1a1a1a;
+            margin-bottom: 8px;
+        }
+
+        .meta {
+            color: #667eea;
+            font-size: 0.95em;
+            margin-bottom: 15px;
+            font-weight: 600;
+        }
+
+        .description {
+            color: #444;
+            line-height: 1.7;
+            font-size: 0.98em;
+            text-align: justify;
+        }
+
+        .tech-stack {
+            color: #764ba2;
+            font-size: 0.9em;
+            margin-top: 12px;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .tech-stack::before {
+            content: '⚡';
+            font-size: 1.2em;
+        }
+
+        .skills-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+            margin-top: 20px;
+        }
+
+        .skill-category {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            padding: 25px;
+            border-radius: 15px;
+            color: white;
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+
+        .skill-category:hover {
+            transform: translateY(-8px) scale(1.02);
+            box-shadow: 0 15px 40px rgba(102, 126, 234, 0.4);
+        }
+
+        .skill-category h4 {
+            margin-bottom: 12px;
+            font-size: 1.2em;
+            font-weight: 700;
+        }
+
+        .skill-category p {
+            font-size: 0.92em;
+            line-height: 1.6;
+            opacity: 0.95;
+        }
+
+        .cert-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 20px;
+            margin-top: 20px;
+        }
+
+        .cert-item {
+            padding: 25px;
+            background: linear-gradient(135deg, #f8f9ff 0%, #fafaff 100%);
+            border-radius: 12px;
+            border: 2px solid #e8ecff;
+            transition: all 0.3s ease;
+            position: relative;
+        }
+
+        .cert-item::before {
+            content: '🏆';
+            font-size: 2em;
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            opacity: 0.3;
+        }
+
+        .cert-item:hover {
+            border-color: #667eea;
+            transform: translateY(-5px);
+            box-shadow: 0 10px 30px rgba(102, 126, 234, 0.2);
+        }
+
+        .cert-title {
+            font-size: 1.05em;
+            font-weight: 600;
+            color: #1a1a1a;
+            margin-bottom: 8px;
+            line-height: 1.4;
+        }
+
+        .cert-issuer {
+            font-size: 0.9em;
+            color: #667eea;
+            font-weight: 500;
+        }
+
+        footer {
+            margin-top: 60px;
+            padding: 40px;
+            text-align: center;
+            color: rgba(255, 255, 255, 0.8);
+            font-size: 0.95em;
+            background: rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(10px);
+            border-radius: 20px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        footer p {
+            margin-bottom: 10px;
+        }
+
+        @media (max-width: 768px) {
+            .container {
+                padding: 40px 20px;
+            }
+
+            h1 {
+                font-size: 2.5em;
+            }
+
+            .subtitle {
+                font-size: 1.1em;
+            }
+
+            .section {
+                padding: 30px 25px;
+            }
+
+            .about-content {
+                grid-template-columns: 1fr;
+            }
+
+            .skills-grid,
+            .cert-grid {
+                grid-template-columns: 1fr;
+            }
+
+            h2 {
+                font-size: 1.8em;
+            }
+        }
+
+        .highlight {
+            background: linear-gradient(135deg, #ffeaa7 0%, #fdcb6e 100%);
+            padding: 3px 8px;
+            border-radius: 4px;
+            font-weight: 600;
+            color: #2c2c2c;
+        }
+
+        .cta-section {
+            text-align: center;
+            margin-top: 30px;
+            padding-top: 30px;
+            border-top: 2px dashed rgba(102, 126, 234, 0.3);
+        }
+
+        .cta-button {
+            display: inline-block;
+            padding: 15px 40px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            text-decoration: none;
+            border-radius: 30px;
+            font-weight: 700;
+            font-size: 1.1em;
+            transition: all 0.3s ease;
+            box-shadow: 0 8px 20px rgba(102, 126, 234, 0.3);
+        }
+
+        .cta-button:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 12px 30px rgba(102, 126, 234, 0.5);
+        }
+    </style>
+</head>
+<body>
+    <div class="noise-overlay"></div>
+    
+    <div class="container">
+        <header>
+            <img src="images/photograph.png" alt="Sweta Pasari" class="profile-photo">
+            <h1>Sweta Pasari</h1>
+            <p class="subtitle">Software Engineer • AI/ML Enthusiast • Full-Stack Developer</p>
+            <div class="contact-links">
+                <a href="mailto:swetapasarisp@gmail.com">📧 Email</a>
+                <a href="tel:+13527095915">📱 Call Me</a>
+                <a href="https://www.linkedin.com/in/sweta-pasari" target="_blank">💼 LinkedIn</a>
+                <a href="https://github.com/swetapasari" target="_blank">💻 GitHub</a>
+            </div>
+        </header>
+
+        <div class="section">
+            <h2>About Me</h2>
+            <div class="about-content">
+                <div class="about-text">
+                    <p>
+                        <strong>The Unexpected Journey from DNA to Code</strong>
+                    </p>
+                    <p>
+                        My story starts in a biotechnology lab in India, where I was supposed to be analyzing genetic sequences. Instead, I found myself writing Python scripts to automate the tedious parts of my research. That's when I realized something: I wasn't just interested in understanding biological systems, I wanted to build the intelligent systems that could help us understand them better.
+                    </p>
+                    <p>
+                        Fast forward to today, and I'm pursuing my Master's in Computer Engineering at the University of Florida, graduating May 2026. But here's what makes my path different: that biotechnology background isn't just a fun fact on my resume. It's my superpower. It taught me to think systematically about complex, interconnected problems, whether that's a metabolic pathway or a distributed computing architecture.
+                    </p>
+                    <p>
+                        <strong>What Drives Me</strong>
+                    </p>
+                    <p>
+                        I get excited about the intersection of AI and real-world impact. Not the "let's build another chatbot" kind of AI, but the kind that actually changes how people work and live. Like when I automated a genomics pipeline and watched weeks of manual analysis shrink to hours. Or when I built a healthcare platform that could intelligently match patients with the right specialists, considering everything from symptoms to insurance networks to urgent availability.
+                    </p>
+                    <p>
+                        <strong>My Philosophy</strong>
+                    </p>
+                    <p>
+                        I believe the best engineering happens when you deeply understand the problem you're solving. That's why I don't just build features, I build solutions. Whether I'm architecting cloud-native platforms, training deep learning models for medical imaging, or designing autoscaling systems for Kubernetes clusters, I'm always asking: "How does this create real value?"
+                    </p>
+                    <p>
+                        I thrive in that sweet spot where machine learning meets production-ready code. Where research-grade accuracy meets enterprise-grade reliability. Where innovative ideas become scalable, maintainable systems that teams can actually use.
+                    </p>
+                    <p>
+                        <strong>What's Next</strong>
+                    </p>
+                    <p>
+                        I'm looking for opportunities where I can bring this blend of scientific thinking and engineering craftsmanship to challenging problems. Whether that's building the next generation of AI-powered healthcare tools, optimizing large-scale distributed systems, or creating platforms that make people's lives genuinely better, I want to be part of teams that are building things that matter.
+                    </p>
+                </div>
+                <div class="about-stats">
+                    <div class="stat-card">
+                        <span class="stat-number">90%</span>
+                        <span class="stat-label">Faster Analysis Pipeline</span>
+                    </div>
+                    <div class="stat-card">
+                        <span class="stat-number">10+</span>
+                        <span class="stat-label">Enterprise Integrations</span>
+                    </div>
+                    <div class="stat-card">
+                        <span class="stat-number">3.66</span>
+                        <span class="stat-label">Graduate GPA</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="section">
+            <h2>Experience</h2>
+
+            <div class="experience-item">
+                <h3>Software Engineer</h3>
+                <p class="meta">University of Florida, Jul 2025 – Present</p>
+                <p class="description">
+                    Architecting automated data processing pipelines that transformed a two-week manual analysis process into a few hours of automated validation. Building robust verification workflows using Python, C#, and distributed computing to ensure scientific reproducibility at scale. Solving complex performance bottlenecks across distributed environments while maintaining data integrity.
+                </p>
+            </div>
+
+            <div class="experience-item">
+                <h3>Instructor, Student Science Training Program (SSTP)</h3>
+                <p class="meta">University of Florida, Jun 2025 – Jul 2025</p>
+                <p class="description">
+                    Co-designed and taught "Integrating Artificial Intelligence with Biomedical Genomics" for talented high school students. Created hands-on curriculum blending molecular biology with AI concepts, mentored capstone projects, and inspired the next generation of computational biologists.
+                </p>
+            </div>
+
+            <div class="experience-item">
+                <h3>Programmer Analyst</h3>
+                <p class="meta">Zifo Technologies Ltd., Feb 2022 – Jul 2024</p>
+                <p class="description">
+                    Built mission-critical integrations for pharmaceutical enterprise platforms, deploying 10+ ELN and LIMS solutions using Java and Spring. Engineered automated testing frameworks that accelerated workflows by 60% while ensuring data integrity across complex regulated environments. Led root-cause analysis for production issues, collaborating across engineering and QA teams.
+                </p>
+            </div>
+
+            <div class="experience-item">
+                <h3>Web Development Intern</h3>
+                <p class="meta">Rewoke Technologies, Jun 2019 – Jun 2020</p>
+                <p class="description">
+                    Developed "PrescrAI," an innovative voice-based prescription tool, and built responsive web platforms using modern JavaScript frameworks. Optimized performance and user experience through data-driven iteration.
+                </p>
+            </div>
+
+            <div class="experience-item">
+                <h3>Summer Research Intern (INSA)</h3>
+                <p class="meta">Department of Physics and Astrophysics, University of Delhi, May 2019 – Jul 2020</p>
+                <p class="description">
+                    Conducted computational biology research modeling bacterial growth dynamics with five population variables simulating key cellular processes. Reproduced and validated analytical results predicting balanced exponential growth through rigorous computational methods. Developed Python simulations analyzing proteome regulation trade-offs in bacterial growth, applying mathematical modeling and programming to solve complex biological systems problems.
+                </p>
+            </div>
+        </div>
+
+        <div class="section">
+            <h2>Featured Projects</h2>
+
+            <div class="project-item">
+                <h3>MealSync: AI-Powered Automation Platform</h3>
+                <p class="meta">Cloud-Native Healthcare Automation</p>
+                <p class="description">
+                    Engineered a cloud-native automation platform using FastAPI and Google Cloud Run that orchestrates intelligent eligibility verification and scheduling workflows. Designed Agent-to-Agent systems powered by LLMs to extract and validate complex eligibility logic from unstructured documents. Applied rigorous prompt engineering and evaluation to ensure responsible, explainable AI decision-making in healthcare contexts.
+                </p>
+                <p class="tech-stack">FastAPI • Google Cloud Run • Docker • Gemini • LLM Orchestration</p>
+            </div>
+
+            <div class="project-item">
+                <h3>MediConnect: AI-Driven Healthcare Platform</h3>
+                <p class="meta">Intelligent Patient-Specialist Matching</p>
+                <p class="description">
+                    Built an AI-powered triage system that analyzes patient symptoms, insurance constraints, and location to intelligently route them to appropriate specialists. Combined LLM-based NLP with rule-based validation for accurate urgency assessment and specialty determination. Developed sophisticated ranking algorithms using geospatial filtering and expertise scoring to optimize patient-provider matching.
+                </p>
+                <p class="tech-stack">React • Python • REST APIs • LLM Integration • NLP</p>
+            </div>
+
+            <div class="project-item">
+                <h3>Transformer-Based Multi-Organ Segmentation</h3>
+                <p class="meta">Medical Image Analysis • HAN-Seg Challenge</p>
+                <p class="description">
+                    Developed state-of-the-art deep learning models for automated segmentation of head-and-neck CT scans in radiotherapy planning. Implemented advanced 3D architectures (U-Net, SwinUNETR) with custom organ-aware patch sampling to tackle extreme class imbalance. Achieved <span class="highlight">0.89 mean Dice score</span> with memory-efficient inference, validated through clinical-grade 3D visualizations.
+                </p>
+                <p class="tech-stack">PyTorch • MONAI • SwinUNETR • 3D Medical Imaging • Deep Learning</p>
+            </div>
+
+            <div class="project-item">
+                <h3>Hierarchical Kubernetes Autoscaling System</h3>
+                <p class="meta">Distributed Systems & Cloud Infrastructure</p>
+                <p class="description">
+                    Architected a two-tier autoscaling framework on distributed Kubernetes clusters with intelligent workload-aware scaling. Designed local controllers for dynamic resource allocation and global controllers for cluster-wide optimization. Built comprehensive observability pipeline using Fluent Bit for real-time monitoring across distributed nodes.
+                </p>
+                <p class="tech-stack">Kubernetes • Python • Docker • CloudLab • Distributed Systems</p>
+            </div>
+
+            <div class="project-item">
+                <h3>Handwritten Greek Letter Classification</h3>
+                <p class="meta">Computer Vision • Deep Learning</p>
+                <p class="description">
+                    Engineered a robust CNN classifier achieving <span class="highlight">99.12% accuracy</span> on standard test sets and 92.99% on challenging variants. Implemented sophisticated regularization, learning rate scheduling, and test-time augmentation for uncertainty quantification. Developed comprehensive evaluation framework with ROC-AUC analysis and confusion matrices.
+                </p>
+                <p class="tech-stack">PyTorch • Computer Vision • CNN • Model Evaluation</p>
+            </div>
+
+            <div class="project-item">
+                <h3>IoT Server Room Monitoring System</h3>
+                <p class="meta">IoT Security & Cloud Integration</p>
+                <p class="description">
+                    Built production-grade IoT monitoring infrastructure using ESP32 microcontrollers with enterprise security standards. Implemented end-to-end encrypted MQTT over TLS with X.509 authentication and secure boot. Integrated AWS IoT Core with automated SNS alerting for proactive infrastructure management.
+                </p>
+                <p class="tech-stack">C++ • AWS IoT Core • MQTT • TLS • Embedded Systems</p>
+            </div>
+
+            <div class="project-item">
+                <h3>GatorReads: Library & Event Management</h3>
+                <p class="meta">Full-Stack Application Development</p>
+                <p class="description">
+                    Designed and built a comprehensive platform for academic resource management and student collaboration. Developed RESTful APIs in Go with complete CRUD operations for books, users, and events. Created intuitive React dashboards with responsive design for seamless cross-platform experience.
+                </p>
+                <p class="tech-stack">React • Golang • REST APIs • Full-Stack Development</p>
+            </div>
+        </div>
+
+        <div class="section">
+            <h2>Technical Skills</h2>
+            <div class="skills-grid">
+                <div class="skill-category">
+                    <h4>Languages</h4>
+                    <p>Python, C/C++, JavaScript, TypeScript, Java, Golang</p>
+                </div>
+                <div class="skill-category">
+                    <h4>AI & Machine Learning</h4>
+                    <p>PyTorch, TensorFlow, LLMs, RAG, MONAI, NLP, Prompt Engineering</p>
+                </div>
+                <div class="skill-category">
+                    <h4>Backend & APIs</h4>
+                    <p>FastAPI, Flask, Spring Boot, Node.js, REST APIs, Microservices</p>
+                </div>
+                <div class="skill-category">
+                    <h4>Frontend Development</h4>
+                    <p>React, Next.js, React Native, TailwindCSS, HTML/CSS</p>
+                </div>
+                <div class="skill-category">
+                    <h4>DevOps & Cloud</h4>
+                    <p>Docker, Kubernetes, Jenkins, AWS, Azure, GCP, Oracle Cloud</p>
+                </div>
+                <div class="skill-category">
+                    <h4>Data & Databases</h4>
+                    <p>MySQL, PostgreSQL, MongoDB, Pandas, NumPy, SciPy</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="section">
+            <h2>Certifications</h2>
+            <div class="cert-grid">
+                <div class="cert-item">
+                    <div class="cert-title">Oracle Cloud Infrastructure 2025 Certified Generative AI Professional</div>
+                    <div class="cert-issuer">Oracle Cloud Infrastructure</div>
+                </div>
+                <div class="cert-item">
+                    <div class="cert-title">SAFe Agile Certification</div>
+                    <div class="cert-issuer">Scaled Agile Framework</div>
+                </div>
+                <div class="cert-item">
+                    <div class="cert-title">AWS Cloud Practitioner</div>
+                    <div class="cert-issuer">Amazon Web Services</div>
+                </div>
+                <div class="cert-item">
+                    <div class="cert-title">Java OOP, Algorithms, Data Structures</div>
+                    <div class="cert-issuer">Professional Development</div>
+                </div>
+            </div>
+        </div>
+
+        <div class="section">
+            <h2>Education</h2>
+
+            <div class="education-item">
+                <h3>Master of Science in Computer Engineering</h3>
+                <p class="meta">University of Florida, Aug 2024 – May 2026, GPA: 3.66/4.0</p>
+                <p class="description">Gainesville, Florida</p>
+            </div>
+
+            <div class="education-item">
+                <h3>Integrated B.Tech & M.Tech in Biotechnology</h3>
+                <p class="meta">Kalinga Institute of Industrial Technology, Jul 2017 – Apr 2022, GPA: 8.9/10.0</p>
+                <p class="description">Bhubaneswar, India</p>
+            </div>
+
+            <div class="cta-section">
+                <a href="mailto:swetapasarisp@gmail.com" class="cta-button">Let's Build Something Amazing Together</a>
+            </div>
+        </div>
+
+        <footer>
+            <p><strong>Available for full-time opportunities starting May 2026</strong></p>
+            <p>Passionate about AI/ML, distributed systems, and building scalable solutions that make a real impact.</p>
+            <p>© 2026 Sweta Pasari</p>
+        </footer>
+    </div>
+</body>
+</html>
